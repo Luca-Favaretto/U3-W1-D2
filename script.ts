@@ -63,7 +63,7 @@ momAccount.addInterest();
 console.log(
   "/////////////////////////////////////////////////////////////////////"
 );
-let accountArray: {}[] = [];
+let accountArray: any = [];
 let count: number = 0;
 const accountForm = document.getElementById("accountForm") as HTMLFormElement;
 accountForm.addEventListener("submit", function (e) {
@@ -84,13 +84,14 @@ accountForm.addEventListener("submit", function (e) {
   );
   console.log(balanceInit);
 
-  type Persona = {
+  interface Persona {
     id: number;
     nome: string;
     cognome: string;
     eta: number;
     saldo: number;
-  };
+  }
+
   const persona: Persona = {
     id: count,
     nome: nome,
@@ -99,9 +100,24 @@ accountForm.addEventListener("submit", function (e) {
     saldo: balanceInit
   };
   console.log(persona);
-  console.log(accountArray);
 
-  accountArray.push(persona);
+  if (accountArray.length === 0) {
+    accountArray.push(persona);
+  } else {
+    accountArray.forEach(elemento => {
+      if (
+        elemento.nome === persona.nome &&
+        elemento.cognome === persona.cognome
+      ) {
+        alert("nome e cognome già in utilizzo");
+        return;
+      } else {
+        accountArray.push(persona);
+      }
+    });
+  }
+
+  console.log(accountArray);
 });
 // accountArray.forEach(obj=>
 //   let newAccount= new Account(obj.name,obj.cognome,obj.eta,obj.saldo));

@@ -59,8 +59,22 @@ accountForm.addEventListener("submit", function (e) {
         saldo: balanceInit
     };
     console.log(persona);
+    if (accountArray.length === 0) {
+        accountArray.push(persona);
+    }
+    else {
+        accountArray.forEach(function (elemento) {
+            if (elemento.nome === persona.nome &&
+                elemento.cognome === persona.cognome) {
+                alert("nome e cognome già in utilizzo");
+                return;
+            }
+            else {
+                accountArray.push(persona);
+            }
+        });
+    }
     console.log(accountArray);
-    accountArray.push(persona);
 });
 // accountArray.forEach(obj=>
 //   let newAccount= new Account(obj.name,obj.cognome,obj.eta,obj.saldo));
